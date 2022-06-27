@@ -1,6 +1,7 @@
 import { CheckCircle, Lock } from 'phosphor-react';
 import { isPast, format } from 'date-fns';
 import pt from 'date-fns/locale/pt';
+import { Link } from 'react-router-dom';
 
 interface LessonCardProps {
 	title: string;
@@ -13,10 +14,10 @@ export const LessonCard: React.FC<LessonCardProps> = ({ title, slug, availableAt
 	const isLessonAvailable = isPast(availableAt);
 	const availableDateFormatted = format(availableAt, "EEEE' • 'd ' de ' MMMM ' • ' k'h'mm", { locale: pt });
 	return (
-		<a href="#" className="">
+		<Link to={`/event/lesson/${slug}`} className="group">
 			<span className="text-base-subtext">{availableDateFormatted}</span>
 
-			<div className="border border-base-strokeDivider rounded p-4 mt-2">
+			<div className="border border-base-strokeDivider rounded p-4 mt-2 transition-colors group-hover:border-product-green">
 				<header className="flex items-center justify-between ">
 					{isLessonAvailable ? (
 						<span className="text-sm text-product-blue font-medium flex items-center gap-2">
@@ -37,6 +38,6 @@ export const LessonCard: React.FC<LessonCardProps> = ({ title, slug, availableAt
 
 				<strong className="text-base-title mt-5 block">{title}</strong>
 			</div>
-		</a>
+		</Link>
 	);
 };
